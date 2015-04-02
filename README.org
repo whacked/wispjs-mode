@@ -4,6 +4,8 @@ A major mode for the Lisp-to-JavaScript language [[http://jeditoolkit.com/wisp/]
 
 Provides syntax highlighting, an =inferior-lisp= REPL, and a compile command.
 
+Provides a live coding method by piping through the =wisp= program and sending the resulting javascript to browser via [[https://github.com/skeeto/skewer-mode][skewer-mode]]
+
 ** Installation
 
 If you're hooked up to [[http://melpa.milkbox.net/][MELPA]]:
@@ -27,6 +29,22 @@ If not, add this to your =.emacs= first:
 =M-x inferior-lisp= will start a REPL.
 
 =M-x wispjs-mode/compile= will compile the file (by default to the same destination, with a =.js= suffix).
+
+** Live coding with wispjs + skewer-mode
+
+   eval =wispjs-skewer.el=
+
+   =(setq httpd-root default-directory)=
+
+   edit =example.html= and turn on =skewer-mode=
+   
+   open browser to =http://localhost:8080/example.html=
+   
+   open e.g. =example.wisp= and start hacking your wisp
+
+   =C-x-e= and =C-M-x= in the wisp-mode buffer to eval the forms in browser!
+
+   run =M-x wispjs-mode/compile= and compile example.wisp to example.js in the current working directory
 
 ** Status
 
