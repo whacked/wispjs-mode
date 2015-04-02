@@ -1,3 +1,5 @@
+;; (setq httpd-root default-directory)
+
 (defun wispjs-skewer-send-region (beg end)
   (let ((sbuf (current-buffer)))
     (with-temp-buffer
