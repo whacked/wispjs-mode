@@ -17,6 +17,9 @@
 (require 'clojure-mode)
 (require 'font-lock)
 
+
+(setq wisp-program "wisp")
+
 ;;; Code:
 
 ;;;###autoload
@@ -29,7 +32,7 @@
   (add-to-list 'comint-preoutput-filter-functions
 	       (lambda (output)
 		 (replace-regexp-in-string "\033\\[[0-9]+[GJK]" "" output)))
-  (setq-local inferior-lisp-program "wisp"))
+  (setq-local inferior-lisp-program wisp-program))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist (cons "\\.wisp\\'" 'wispjs-mode))
@@ -41,7 +44,7 @@
   (let ((output-name (format "%s.js" (file-name-sans-extension (file-relative-name buffer-file-name)))))
     (shell-command-on-region (point-min)
 			     (point-max)
-			     "wisp"
+			     wisp-program
 			     output-name)
     (with-current-buffer (get-buffer output-name)
       (save-buffer)))
