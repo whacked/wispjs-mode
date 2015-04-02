@@ -1,12 +1,12 @@
 (defun wispjs-skewer-send-region (beg end)
- (let ((sbuf (current-buffer)))
-   (with-temp-buffer
-     (let ((tbuf (current-buffer)))
-       (set-buffer sbuf)
-       (call-process-region beg end
-        wisp-program nil tbuf nil "--no-map")
-       (set-buffer tbuf)
-       (skewer-eval (buffer-string))))))
+  (let ((sbuf (current-buffer)))
+    (with-temp-buffer
+      (let ((tbuf (current-buffer)))
+        (set-buffer sbuf)
+        (call-process-region beg end
+                             wisp-program nil tbuf nil "--no-map")
+        (set-buffer tbuf)
+        (skewer-eval (buffer-string) #'skewer-post-minibuffer)))))
 
 (defun wispjs-skewer-eval-preceding-sexp ()
   (interactive)
