@@ -1,13 +1,18 @@
 ;; (setq httpd-root default-directory)
 
+(setq wispjs-preamble "")
+
 (defun wispjs-skewer-send-region (beg end)
-  (let ((sbuf (current-buffer)))
+  (let ((selected (buffer-substring beg end)))
     (with-temp-buffer
       (let ((tbuf (current-buffer)))
-        (set-buffer sbuf)
-        (call-process-region beg end
-                             wisp-program nil tbuf nil "--no-map")
-        (set-buffer tbuf)
+        (insert wispjs-preamble)
+        (insert selected)
+        (call-process-region
+         (point-min) (point-max)
+         wisp-program
+         t ;; delete = replace region with eval output
+         tbuf nil "--no-map")
         (skewer-eval (buffer-string) #'skewer-post-minibuffer)))))
 
 (defun wispjs-skewer-eval-preceding-sexp ()
